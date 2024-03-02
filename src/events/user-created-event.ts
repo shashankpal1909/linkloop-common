@@ -29,5 +29,9 @@ export interface UserCreatedEvent {
      * The user's full name.
      */
     fullName: string;
+    /**
+     * The user's username.
+     */
+    userName: string;
   };
 }

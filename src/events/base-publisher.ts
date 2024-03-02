@@ -14,6 +14,7 @@ interface Event {
 export abstract class Publisher<T extends Event> {
   protected connection: Connection;
   protected channel!: Channel;
+
   abstract exchange: T["exchange"];
   abstract routingKey: T["routingKey"];
 

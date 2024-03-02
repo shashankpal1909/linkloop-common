@@ -21,20 +21,9 @@ export abstract class Publisher<T extends Event> {
    * Creates a new instance of the BasePublisher class.
    * @param connection - The AMQP connection to use for publishing messages.
    */
-  constructor(connection: Connection) {
+  constructor(connection: Connection, channel: Channel) {
     this.connection = connection;
-    this.createChannel();
-  }
-
-  /**
-   * Creates a new channel on the AMQP connection.
-   */
-  private async createChannel() {
-    try {
-      this.channel = await this.connection.createChannel();
-    } catch (error: unknown) {
-      console.error("Error creating channel:", error);
-    }
+    this.channel = channel;
   }
 
   /**

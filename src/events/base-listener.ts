@@ -12,11 +12,12 @@ interface Event {
  * Base class for message listeners.
  */
 export abstract class Listener<T extends Event> {
-  abstract queue: string;
-  private connection: Connection;
-  protected channel!: Channel;
+  protected connection: Connection;
+  protected channel: Channel;
+
   abstract exchange: T["exchange"];
   abstract routingKey: T["routingKey"];
+  abstract queue: string;
 
   /**
    * Creates a new instance of the BaseListener class.
@@ -45,6 +46,9 @@ export abstract class Listener<T extends Event> {
         if (message) {
           try {
             const data = JSON.parse(message.content.toString());
+            console.log(
+              `Message received from exchange '${this.exchange}' with routing key '${this.routingKey}'`
+            );
             this.onMessage(data, message);
           } catch (error) {
             console.error("Error processing message:", error);

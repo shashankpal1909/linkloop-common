@@ -22,20 +22,9 @@ export abstract class Listener<T extends Event> {
    * Creates a new instance of the BaseListener class.
    * @param connection - The AMQP connection to use for listening.
    */
-  constructor(connection: Connection) {
+  constructor(connection: Connection, channel: Channel) {
     this.connection = connection;
-    this.createChannel();
-  }
-
-  /**
-   * Creates a new channel on the connection.
-   */
-  private async createChannel() {
-    try {
-      this.channel = await this.connection.createChannel();
-    } catch (error) {
-      console.error("Error creating channel:", error);
-    }
+    this.channel = channel;
   }
 
   /**
